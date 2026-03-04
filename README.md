@@ -36,7 +36,7 @@ python manage.py migrate
 * instalar configuración previa, esto nos da un usuario (yo), pass (yo), que ya tiene configurada la mayor parte de lo que explico casi al final de [como instalar desde 0 por cualquier problema](#como-instalar-desde-0-por-cualquier-problema) 
 
 ```sh
-python manage.py loaddata data.py
+python manage.py loaddata data.json
 ```
 
 * recolectar estáticos
