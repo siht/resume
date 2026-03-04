@@ -54,14 +54,14 @@ WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
 ...
 ```
 
-* vamos a agregar una configuración que dice el tutorial que lo hagamos pero es opcional para hacer la configuración en el admin (aunque lo vamos a sustituir por las dependencias de wagtail_locales)
+* vamos a agregar una configuración que dice el tutorial que lo hagamos pero es opcional para hacer la configuración en el admin (aunque lo vamos a sustituir por las dependencias de wagtail-localize)
 
 ```python
 # config/settings/base.py
 ...
 INSTALLED_APPS = [
     ...
-    'wagtail.locales',
+    'wagtail.locales', # esto se va a cambiar, pero se deja para que tengas la referencia de que cambiar
     ...
 ]
 ...
@@ -141,3 +141,21 @@ MIDDLEWARE = [
     {% endlanguage %}
 {% endfor %}
 ```
+
+* instalar wagtail-localize [documentación de wagtail-localize](https://wagtail-localize.org/stable/)
+
+```sh
+pip install wagtail-localize
+```
+
+* cambiar 'wagtail.locales' en INSTALLED_APPS
+
+```python
+INSTALLED_APPS = [
+    # ...
+    "wagtail_localize",
+    "wagtail_localize.locales",  # este reeemplaza "wagtail.locales"
+    # ...
+```
+
+* dice que hay que correr collect static, pero lo vamos a dejar casi para el final
