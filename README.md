@@ -6,9 +6,20 @@ proyecto de wagtail preparado para empezar sitios con páginas traducidas para h
 * python 3.14.*
 * wagtail 7.3rc1
 
+## links útiles para que no busques por todo el texto
+
+* [wagtail getting started page](https://docs.wagtail.org/en/stable/getting_started/tutorial.html)
+* [Internationalization wagtail page](https://docs.wagtail.org/en/stable/advanced_topics/i18n.html#configuration)
+* [configuración de locales](https://docs.wagtail.org/en/stable/advanced_topics/i18n.html#configuration)
+* [documentación de wagtail-localize](https://wagtail-localize.org/stable/)
+* [página de github de wagtail resume](https://github.com/adinhodovic/wagtail-resume)
+
+
 ## inicio rápido
 
 * descarga este repositorio
+
+* crea un entorno virtual
 
 * entra a resume e instala las dependencias
 
