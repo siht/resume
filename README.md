@@ -1,12 +1,46 @@
 # resume
 proyecto de wagtail preparado para empezar sitios con páginas traducidas para hacer cv
 
-## dependencias para iniciar desde 0
+## dependencias (probadas, cualquier cambio va por tu cuenta)
 
 * python 3.14.*
 * wagtail 7.3rc1
 
-### como instalar desde 0 por cualquier problema
+## inicio rápido
+
+* descarga este repositorio
+
+* entra a resume e instala las dependencias
+
+```sh
+pip install -r requirements.txt
+```
+
+* aplicar migraciones
+
+```sh
+python manage.py migrate
+```
+
+* instalar configuración previa, esto nos da un usuario (yo), pass (yo), que ya tiene configurada la mayor parte de lo que explico casi al final de [como instalar desde 0 por cualquier problema](#como-instalar-desde-0-por-cualquier-problema) 
+
+```sh
+python manage.py loaddata data.py
+```
+
+* recolectar estáticos
+
+```sh
+python manage.py collectstatic
+```
+
+* iniciar el servidor (asegurate de no cambiar el puerto a otro que no sea el 8000)
+
+```sh
+python manage.py runserver
+```
+
+## como instalar desde 0 por cualquier problema
 
 * crea un entorno virtual
 
@@ -218,3 +252,19 @@ python manage.py migrate
 ```sh
 python manage.py collectstatic
 ```
+
+* generar un superusuario
+
+```sh
+python manage.py createsuperuser
+```
+
+* iniciar el servidor
+
+```sh
+python manage.py runserver
+```
+
+* dentro del admin, debes de dar de alta un nuevo locale, con la configuración de este README el default es español, así que propiedades/regiones das de alta en inglés en la parte de "Add a locale", ahí te dará el idioma inglés, lo único que debes hacer es en la parte de "Sincronizar contentido desde otra región" seleccionar spanish y guardar.
+
+* dentro del admin, también debes cambiar el puerto de sitios por el que estás usando, así que ve a propiedades/sitios y a localhost le cambias el puerto en mi caso será 8000 y guardas
