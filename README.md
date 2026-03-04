@@ -28,3 +28,116 @@ wagtail start config resume # así te creará una carpeta llamada resume y la co
 cd resume
 pip install -r requirements.txt
 ```
+
+* ahora configuramos los locales [Internationalization wagtail page](https://docs.wagtail.org/en/stable/advanced_topics/i18n.html#configuration) o ve directo a [configuración de locales](https://docs.wagtail.org/en/stable/advanced_topics/i18n.html#configuration) para más información. abre los settings base del proyecto y cambia o agrega a true estas variables.
+
+```python
+# config/settings/base.py
+...
+USE_I18N = True
+
+WAGTAIL_I18N_ENABLED = True
+
+USE_L10N = True # esta es opcional y es para formatear correctamente fechas y números
+...
+```
+
+* agrega los lenguajes que quieres
+
+```python
+# config/settings/base.py
+...
+WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
+    ('en', "English"),
+    ('es', "Spanish"),
+]
+...
+```
+
+* vamos a agregar una configuración que dice el tutorial que lo hagamos pero es opcional para hacer la configuración en el admin (aunque lo vamos a sustituir por las dependencias de wagtail_locales)
+
+```python
+# config/settings/base.py
+...
+INSTALLED_APPS = [
+    ...
+    'wagtail.locales',
+    ...
+]
+...
+```
+
+* añadir un prefijo de lenguaje a las urls (basicamente para que las encuentres por "sitio.com/en/cv" para la versión inglés)
+
+```python
+# config/urls.py
+
+...
+
+from django.conf.urls.i18n import i18n_patterns
+
+urlpatterns = [
+    path('django-admin/', admin.site.urls),
+    path('admin/', include(wagtailadmin_urls)),
+    path('documents/', include(wagtaildocs_urls)),
+    # aquí si te fijas falta search es porque se borró y se va agregar abajo
+]
+
+# hasta el final del archivo está el urlpatterns
+# 
+# urlpatterns = urlpatterns + [... 
+# 
+# pero  lo vamos a cambiar por esto:
+
+urlpatterns += i18n_patterns(
+    path('search/', search_views.search, name='search'), # y aquí está el search que borramos arriba
+    path("", include(wagtail_urls)),
+)
+```
+
+* configurar el lenguaje default (supongo que lo quieres en español)
+
+```python
+# config/settings/base.py
+...
+LANGUAGE_CODE = 'es'
+...
+```
+
+* y en las urls poner esta configuración para que el lenguaje default no tenga el prefijo (prefix_default_language) y agregar un middleware.
+
+```python
+# config/urls.py
+...
+urlpatterns += i18n_patterns(
+    path('search/', search_views.search, name='search'),
+    path("", include(wagtail_urls)),
+    prefix_default_language=False, #esto es lo que se agregó
+)
+...
+```
+
+```python
+# config/settings/base.py
+...
+MIDDLEWARE = [
+    ...
+    'django.middleware.locale.LocaleMiddleware',
+    ...
+]
+...
+```
+
+* opcional hay que agregar a las páginas un selector de idioma, pero este se agrega a los html, así que sólo dejo el snipet
+
+```django
+{% for language_code, language_name in LANGUAGES %}
+    {% get_language_info for language_code as lang %}
+
+    {% language language_code %}
+        <a href="{% pageurl page.localized %}" rel="alternate" hreflang="{{ language_code }}">
+            {{ lang.name_local }}
+        </a>
+    {% endlanguage %}
+{% endfor %}
+```
