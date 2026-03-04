@@ -26,6 +26,9 @@ BASE_DIR = PROJECT_DIR.parent
 INSTALLED_APPS = [
     "home",
     "search",
+    "wagtailmetadata",
+    "wagtailmarkdown",
+    "wagtail_resume",
     "wagtail_localize",
     "wagtail_localize.locales",
     "wagtail.contrib.forms",

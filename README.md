@@ -145,17 +145,76 @@ MIDDLEWARE = [
 * instalar wagtail-localize [documentación de wagtail-localize](https://wagtail-localize.org/stable/)
 
 ```sh
-pip install wagtail-localize
+pip install wagtail-localize==1.13 # la versión es opcional, pero la documentación que actualmente ves funciona con esta versión
 ```
 
 * cambiar 'wagtail.locales' en INSTALLED_APPS
 
 ```python
+# config/settings/base.py
 INSTALLED_APPS = [
-    # ...
+    ...
     "wagtail_localize",
     "wagtail_localize.locales",  # este reeemplaza "wagtail.locales"
-    # ...
+    ...
 ```
 
 * dice que hay que correr collect static, pero lo vamos a dejar casi para el final
+
+* instalar wagtail-resume [página de github de wagtail resume](https://github.com/adinhodovic/wagtail-resume)
+
+```sh
+pip install wagtail-resume==2.12.0 # la versión es opcional, pero la documentación que actualmente ves funciona con esta versión
+```
+
+* configurar wagtail resume
+```python
+# config/settings/base.py
+INSTALLED_APPS = [
+    ...
+    "wagtailmetadata",
+    "wagtailmarkdown",
+    "wagtail_resume",
+    ...
+]
+```
+```python
+# config/urls.py
+...
+urlpatterns = [ # este es el primer urls patterns
+    ...
+    path("resume/", include("wagtail_resume.urls")), # hay que agregar este al final
+]
+...
+```
+
+* agregar el modelo a home/models.py para empezar a tener páginas de tipo resume o cv
+
+```python
+# home/models.py
+...
+from wagtail_resume.models import BaseResumePage
+
+...
+
+class ResumePage(BaseResumePage):
+    pass
+```
+
+* correr makemigrations
+
+```sh
+python manage.py makemigrations
+```
+
+* aplicar migraciones
+
+```sh
+python manage.py migrate
+```
+
+* ahora si correr collectstatic
+
+```sh
+python manage.py collectstatic
+```
