@@ -265,24 +265,6 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-* ahora si correr collectstatic
-
-```sh
-python manage.py collectstatic
-```
-
-* generar un superusuario
-
-```sh
-python manage.py createsuperuser
-```
-
-* iniciar el servidor
-
-```sh
-python manage.py runserver
-```
-
 * por alguna razón algunas traducciones se quedaron en los archivos, aspí que toca hacer los pasos de configurar las traducciones de django y crear una carpeta llamada locale en la raíz del proyecto
 
 ```python
@@ -421,6 +403,24 @@ django-admin makemessages -l es -e html
 
 ```sh
 django-admin compilemessages
+```
+
+* ahora si correr collectstatic
+
+```sh
+python manage.py collectstatic
+```
+
+* generar un superusuario
+
+```sh
+python manage.py createsuperuser
+```
+
+* iniciar el servidor
+
+```sh
+python manage.py runserver
 ```
 
 * dentro del admin, debes de dar de alta un nuevo locale, con la configuración de este README el default es español, así que propiedades/regiones das de alta en inglés en la parte de "Add a locale", ahí te dará el idioma inglés, lo único que debes hacer es en la parte de "Sincronizar contentido desde otra región" seleccionar spanish y guardar.
