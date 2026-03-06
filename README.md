@@ -45,6 +45,12 @@ python manage.py loaddata data.json
 python manage.py collectstatic
 ```
 
+* opcional pero muy deseable (casi obligatorio para que tengas todas las traducciones), instalar gettext para correr
+
+```sh
+django-admin compilemessages
+```
+
 * iniciar el servidor (asegurate de no cambiar el puerto a otro que no sea el 8000)
 
 ```sh
@@ -223,6 +229,7 @@ INSTALLED_APPS = [
     ...
 ]
 ```
+
 ```python
 # config/urls.py
 ...
@@ -274,6 +281,146 @@ python manage.py createsuperuser
 
 ```sh
 python manage.py runserver
+```
+
+* por alguna razón algunas traducciones se quedaron en los archivos, aspí que toca hacer los pasos de configurar las traducciones de django y crear una carpeta llamada locale en la raíz del proyecto
+
+```python
+# config/settings/base.py
+LOCALE_PATHS = [
+    BASE_DIR/'locale',
+]
+```
+
+```sh
+# ve a la raíz del proyecto, no del repositorio y ejecuta para que coincida con la configuración que acabamos de poner
+mkdir locale
+```
+
+* si no lo tienes instalado hay que instalar gettext (esto se probó en wsl)
+
+```sh
+# ubuntu / wsl
+sudo apt update && sudo apt install gettext
+```
+
+```sh
+# macos
+brew install gettext
+brew link --force gettext
+```
+
+```sh
+# en windows con chocolatey o ve a la página de gnu gettext for windows (https://mlocati.github.io/articles/gettext-iconv-windows.html)
+choco install gettext
+```
+
+* después de instalar gettext hay recolectar los mensajes y compilarlos, pero antes hay que copiar el html que no está completamente configurado para ser traducido por wagtail-localize
+
+```sh
+# home/templates/
+mkdir wagtail_resume
+```
+
+```django
+{% comment %}
+te dejo el archivo completo para que no batalles buscando que poner
+{% endcomment %}
+{% load i18n %}
+{% load static %}
+{% load wagtailimages_tags %}
+{% load wagtailmarkdown %}
+{% load wagtail_resume_extras %}
+
+{% if debug_i18n %}
+  {% include 'wagtail_resume/localization_dropdown.html' %}
+{% endif %}
+{# djlint:off #}
+<!-- We set bg_color within a style tag to only apply bg_color when having a min-width. Weasyprint does not support @media queries
+     therefore setting a min-width to 1px ensures that the bg_color does not get applied when generating pdfs. -->
+{% with page.background_color|default_if_none:"#343A40" as bg_color %}
+<style>
+  @media (min-width: 1px) {
+    .container {
+      background-color: {{ bg_color }};
+    }
+  }
+
+  @page {
+    margin: 0.75in 0.75in 0.85in 0.75in;
+    size: Letter;
+
+    @bottom-center {
+      content: "{% trans "Page" %} " counter(page) " {% trans "of" %} " counter(pages);
+      font-size: 8pt;
+      color: #666666;
+      font-style: italic;
+      font-family: "Roboto", "Noto Sans";
+    }
+  }
+</style>
+{% endwith %}
+<body style="font-family: {% if page.font %}'{{ page.font|title }}', {% endif %}'Roboto', 'Noto Sans'">
+{# djlint:on #}
+<div class="container">
+  <div class="resume">
+    <div class="personal-info">
+      <div>
+        <h2 class="mt-2 mb-0">{{ page.full_name }}</h2>
+        {% if page.role %}<h2 class="mt-2">{{ page.role }}</h2>{% endif %}
+        <div class="social-links">
+          {% for social_link in page.social_links %}
+            <div class="social-links">
+              <a class="social-link" href="{{ social_link.value.url }}">
+                {% if social_link.value.logo %}
+                  {% image social_link.value.logo original class="mt-1" %}
+                  <span class="ml-1">{{ social_link.value.text }}</span>
+                {% else %}
+                  <span class="ml-0">{{ social_link.value.text }}</span>
+                {% endif %}
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+        {% if page.display_last_update %}
+          <p class="small italic mt-1">{% trans "Last update" %}: {{ page.latest_revision_created_at|date }}</p>
+        {% endif %}
+      </div>
+      <div class="mt-4">{% image page.photo original class="photo" %}</div>
+    </div>
+    <div>
+      <h2 class="mt-4 mb-0">
+        {% if page.about_icon %}<i class="{{ page.about_icon }}"></i>{% endif %}
+        <span>{% trans "About" %}</span>
+      </h2>
+      <hr />
+      <p>{{ page.about | markdown }}</p>
+    </div>
+    {% for block in page.resume %}{{ block }}{% endfor %}
+    {% if page.pdf_generation_visibility == "always" or user.is_authenticated and page.pdf_generation_visibility == "authenticated" %}
+      <div class="pdf-buttons">
+        <a class="pdf"
+           href="{% url 'generate_resume_pdf' %}?page_id={{ page.id }}"
+           title="Download standard resume PDF">{% trans "Get PDF" %}</a>
+        <a class="pdf pdf-academic"
+           href="{% url 'generate_academic_resume_pdf' %}?page_id={{ page.id }}"
+           title="Download academic-style resume (professional CV format)">{% trans "Get Academic PDF" %}</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+</body>
+```
+
+```sh
+# crear archivo .po (necesario gettext)
+django-admin makemessages -l es -e html
+```
+
+* escribes las traducciones que te pide, se va a generar un árbol de directorios con un archivo (locale/es/LC_MESSAGES/django.po) con placeholders para que coloques las traducciones, en mi caso usé sólo español y una vez que termines ahora hay que compilarlo
+
+```sh
+django-admin compilemessages
 ```
 
 * dentro del admin, debes de dar de alta un nuevo locale, con la configuración de este README el default es español, así que propiedades/regiones das de alta en inglés en la parte de "Add a locale", ahí te dará el idioma inglés, lo único que debes hacer es en la parte de "Sincronizar contentido desde otra región" seleccionar spanish y guardar.

@@ -1,0 +1,90 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-05 17:19-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+#: home/templates/home/welcome_page.html:6
+msgid "Visit the Wagtail website"
+msgstr "Visita el sitio de Wagtail"
+
+#: home/templates/home/welcome_page.html:15
+msgid "View the release notes"
+msgstr "Ver las notas de esta versión"
+
+#: home/templates/home/welcome_page.html:27
+msgid "Welcome to your new Wagtail site!"
+msgstr "¡Bienvenido a tu nuevo sitio de Wagtail!"
+
+#: home/templates/home/welcome_page.html:28
+msgid ""
+"Please feel free to <a href=\"https://github.com/wagtail/wagtail/wiki/"
+"Slack\">join our community on Slack</a>, or get started with one of the "
+"links below."
+msgstr ""
+"Por favor sientete libre de <a href=\"https://github.com/wagtail/wagtail/"
+"wiki/Slack\">unirte a nuestra comunidad en Slack</a>, o inicia con uno de "
+"los links de abajo."
+
+#: home/templates/home/welcome_page.html:35
+msgid "Wagtail Documentation"
+msgstr "Documentación de Wagtail"
+
+#: home/templates/home/welcome_page.html:36
+msgid "Topics, references, & how-tos"
+msgstr "Tópicos, referencias y recetas"
+
+#: home/templates/home/welcome_page.html:42
+msgid "Tutorial"
+msgstr "Tutorial"
+
+#: home/templates/home/welcome_page.html:43
+msgid "Build your first Wagtail site"
+msgstr "Construye tu primer sitio Wagtail"
+
+#: home/templates/home/welcome_page.html:49
+msgid "Admin Interface"
+msgstr "Interfaz del Admin"
+
+#: home/templates/home/welcome_page.html:50
+msgid "Create your superuser first!"
+msgstr "¡Crea tu superuser primero!"
+
+#: home/templates/wagtail_resume/resume_page_body.html:26
+msgid "Page"
+msgstr "Página"
+
+#: home/templates/wagtail_resume/resume_page_body.html:26
+msgid "of"
+msgstr "de"
+
+#: home/templates/wagtail_resume/resume_page_body.html:58
+msgid "Last update"
+msgstr "Última actualización"
+
+#: home/templates/wagtail_resume/resume_page_body.html:66
+msgid "About"
+msgstr "Acerca"
+
+#: home/templates/wagtail_resume/resume_page_body.html:76
+msgid "Get PDF"
+msgstr "Generar PDF"
+
+#: home/templates/wagtail_resume/resume_page_body.html:79
+msgid "Get Academic PDF"
+msgstr "Generar PDF Académico"
