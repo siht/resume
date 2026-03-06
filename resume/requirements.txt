@@ -26,7 +26,7 @@ laces==0.1.2
 Markdown==3.10.2
 modelsearch==1.1.1
 openpyxl==3.1.5
-packaging @ file:///home/task_176104874909647/conda-bld/packaging_1761049078203/work
+packaging
 pillow==12.1.1
 pillow_heif==1.3.0
 polib==1.2.0
