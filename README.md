@@ -45,7 +45,13 @@ python manage.py loaddata data.json
 python manage.py collectstatic
 ```
 
-* opcional pero muy deseable (casi obligatorio para que tengas todas las traducciones), instalar gettext para correr
+* opcional pero muy deseable (casi obligatorio para que tengas todas las traducciones), instalar gettext para correr, te dejo este extracto, pero casi al final de estas instrucciones puedes ver para otros sistemas.
+
+```sh
+# así lo instalas en linux/wsl
+sudo apt update && sudo apt install gettext
+```
+
 
 ```sh
 django-admin compilemessages
@@ -265,7 +271,7 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-* por alguna razón algunas traducciones se quedaron en los archivos, aspí que toca hacer los pasos de configurar las traducciones de django y crear una carpeta llamada locale en la raíz del proyecto
+* por alguna razón algunas traducciones se quedaron en los archivos, así que toca hacer los pasos de configurar las traducciones de django y crear una carpeta llamada locale en la raíz del proyecto
 
 ```python
 # config/settings/base.py
@@ -302,10 +308,13 @@ choco install gettext
 ```sh
 # home/templates/
 mkdir wagtail_resume
+# una vez creado el directorio dentro vas a crear el siguiente archivo con este nombre resume_page_body.html
 ```
 
 ```django
 {% comment %}
+es el direcotrio home de tu proyecto, no de tu máquina
+home/templates/wagtail_resume/resume_page_body.html
 te dejo el archivo completo para que no batalles buscando que poner
 {% endcomment %}
 {% load i18n %}
